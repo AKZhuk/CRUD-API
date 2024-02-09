@@ -1,18 +1,18 @@
 {
-  "name": "my-webpack-project",
+  "name": "simple-crud-api",
   "version": "1.0.0",
   "description": "My webpack project",
-  "main": "index.js",
+  "main": "index.ts",
   "engines": {
     "node": ">=20.0.0"
   },
   "scripts": {
     "start:dev": "ts-node-dev  --env-file=.env --respawn src/index.ts",
-    "start:prod1": "webpack --config webpack.config.js",
-    "test": "test",
+    "start:prod": "npm run build && node --env-file=.env dist/bundle.js ",
+    "start:multi": "cross-env SERVER_MODE=MULTI ts-node-dev --env-file=.env --respawn src/index.ts",
+    "test": "jest",
     "build": "webpack --mode=production --node-env=production",
-    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-    "start:prod": "tsc && node --env-file=.env dist/src/index.js "
+    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\""
   },
   "author": "Aliaksei Zhuk",
   "license": "ISC",

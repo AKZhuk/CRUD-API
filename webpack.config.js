@@ -6,7 +6,9 @@ const isProduction = process.env.NODE_ENV == 'production';
 
 const config = {
   entry: './src/index.ts',
+  target: 'node',
   output: {
+    filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
   },
   plugins: [
@@ -16,22 +18,14 @@ const config = {
   module: {
     rules: [
       {
-        target: 'node',
-        test: /\.(ts|tsx)$/i,
+        test: /\.(ts)$/i,
         loader: 'ts-loader',
         exclude: ['/node_modules/'],
       },
-      {
-        test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,
-        type: 'asset',
-      },
-
-      // Add your rules for custom modules here
-      // Learn more about loaders from https://webpack.js.org/loaders/
     ],
   },
   resolve: {
-    extensions: ['.tsx', '.ts', '.jsx', '.js', '...'],
+    extensions: ['.ts', '.js'],
   },
 };
 
