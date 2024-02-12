@@ -16,6 +16,13 @@ export enum HTTPMethod {
   PUT = "PUT",
 }
 
+export enum Messages {
+  InvalidId = "Invalid user id",
+  UserNotExist = "User does not exist",
+  MissedRequiredField = "body does not contain required fields",
+  ResourceNotFound = "Resource not found",
+  UnknownError = "the server encountered an error please try again later",
+}
 export const users: User[] = [
   {
     id: "b8d32d98-f671-4aaf-b93e-78604643ae28",
