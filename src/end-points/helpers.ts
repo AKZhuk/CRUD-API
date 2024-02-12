@@ -21,7 +21,11 @@ export const checkIsUserExist = (id: string) => {
 };
 
 export const validateUser = (user: User) => {
-  if (!user.age || !user.username || !user.hobbies) {
+  if (
+    typeof user.age !== "number" ||
+    typeof user.username !== "string" ||
+    !Array.isArray(user.hobbies)
+  ) {
     throw new CustomError(StatusCode.BadRequest, Messages.MissedRequiredField);
   }
 };
@@ -37,7 +41,14 @@ export const getBody = async (req: http.IncomingMessage) => {
       if (!body) {
         resolve("");
       }
-      resolve(JSON.parse(body));
+      try {
+        const data = JSON.parse(body);
+        resolve(data);
+      } catch (error) {
+        reject(
+          new CustomError(StatusCode.ServerErrorInternal, Messages.UnknownError)
+        );
+      }
     });
 
     req.on("error", () => {

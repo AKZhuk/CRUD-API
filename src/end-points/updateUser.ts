@@ -6,11 +6,15 @@ export const updateUser = async (
   req: http.IncomingMessage,
   id: string | undefined
 ) => {
-  checkIsValidId(id);
-  const index = checkIsUserExist(id as string);
+  try {
+    checkIsValidId(id);
+    const index = checkIsUserExist(id as string);
 
-  let updatedUser: any = await getBody(req);
-  users[index] = { ...users[index], ...updatedUser };
+    let updatedUser: any = await getBody(req);
+    users[index] = { ...users[index], ...updatedUser };
 
-  return { statusCode: StatusCode.SuccessOK, body: users[index] };
+    return { statusCode: StatusCode.SuccessOK, body: users[index] };
+  } catch (error) {
+    throw error;
+  }
 };
