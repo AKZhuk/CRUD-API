@@ -1,6 +1,6 @@
 import http, { Server } from "http";
-import { HTTPMethod, StatusCode, users } from "../src/constants";
-import { requestListener } from "../src/requestListener"; // Assuming your Express app is exported from app.ts
+import { HTTPMethod, Messages, StatusCode, users } from "../src/constants";
+import { requestListener } from "../src/requestListener";
 import { getBody } from "../src/end-points/helpers";
 import { User } from "types";
 import { AddressInfo } from "net";
@@ -145,7 +145,7 @@ describe("User API Tests", () => {
           expect(res.statusCode).toBe(StatusCode.BadRequest);
 
           const responseBody = (await getBody(res)) as User;
-          expect(responseBody).toBe("Invalid user id");
+          expect(responseBody).toBe(Messages.InvalidId);
           done();
         }
       );
@@ -164,7 +164,7 @@ describe("User API Tests", () => {
         async (res) => {
           expect(res.statusCode).toBe(StatusCode.BadRequest);
           const responseBody = (await getBody(res)) as User;
-          expect(responseBody).toBe("Invalid user id");
+          expect(responseBody).toBe(Messages.InvalidId);
           done();
         }
       );
@@ -178,7 +178,7 @@ describe("User API Tests", () => {
         expect(res.statusCode).toBe(StatusCode.BadRequest);
 
         const responseBody = await getBody(res);
-        expect(responseBody).toBe("Invalid user id");
+        expect(responseBody).toBe(Messages.InvalidId);
         done();
       });
     });
@@ -192,7 +192,7 @@ describe("User API Tests", () => {
         expect(res.statusCode).toBe(StatusCode.ClientErrorNotFound);
 
         const responseBody = await getBody(res);
-        expect(responseBody).toBe("User does not exist");
+        expect(responseBody).toBe(Messages.UserNotExist);
         done();
       });
     });
@@ -214,7 +214,7 @@ describe("User API Tests", () => {
           expect(res.statusCode).toBe(StatusCode.ClientErrorNotFound);
 
           const responseBody = (await getBody(res)) as User;
-          expect(responseBody).toBe("User does not exist");
+          expect(responseBody).toBe(Messages.UserNotExist);
           done();
         }
       );
@@ -233,7 +233,7 @@ describe("User API Tests", () => {
         async (res) => {
           expect(res.statusCode).toBe(StatusCode.ClientErrorNotFound);
           const responseBody = (await getBody(res)) as User;
-          expect(responseBody).toBe("User does not exist");
+          expect(responseBody).toBe(Messages.UserNotExist);
           done();
         }
       );
